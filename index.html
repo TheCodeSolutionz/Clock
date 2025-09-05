@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Time Bar</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font (assuming style.css handles font import if needed) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gradient-to-br from-blue-200 to-sky-300 flex items-center justify-center min-h-screen overflow-hidden p-4">
+
+    <!-- Main container for the dynamic time bar, with a light glass effect -->
+    <div
+        class="relative w-full max-w-5xl rounded-3xl overflow-hidden p-4 sm:p-8 flex flex-col items-center justify-between">
+
+        <!-- Main title -->
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-800 text-center tracking-tight mb-4 sm:mb-8">
+            CURRENT TIME
+        </h1>
+
+        <!-- The main grid of time columns -->
+        <div id="timeGrid" class="relative flex-grow flex items-start justify-center w-full h-[80vh] border overflow-x-auto overflow-y-hidden">
+
+            <!-- Time Columns Container -->
+            <div id="timeColumns"
+                class="flex space-x-2 sm:space-x-4 relative z-20 text-slate-700 font-semibold text-sm sm:text-base lg:text-lg z-10">
+
+                <!-- Weekday Column -->
+                <div
+                    class="flex-shrink-0 flex flex-col h-full min-w-[4rem] sm:min-w-[5rem] md:min-w-[8rem] lg:min-w-[10rem] bg-white/25 border border-white/30 shadow-md shadow-black/25 backdrop-blur-md rounded-lg p-2 sm:p-4 lg:p-8 overflow-hidden">
+                    <div class="column-label text-center font-bold text-xs sm:text-sm mb-1 sm:mb-2">Weekday</div>
+                    <div class="flex-grow overflow-hidden">
+                        <div id="weekdayColumn" class="flex flex-col text-center w-full"></div>
+                    </div>
+                </div>
+
+                <!-- Month Column -->
+                <div
+                    class="flex-shrink-0 flex flex-col h-full min-w-[4rem] sm:min-w-[5rem] md:min-w-[8rem] lg:min-w-[10rem] bg-white/25 border border-white/30 shadow-md shadow-black/25 backdrop-blur-md rounded-lg p-2 sm:p-4 lg:p-8 overflow-hidden">
+                    <div class="column-label text-center font-bold text-xs sm:text-sm mb-1 sm:mb-2">Month</div>
+                    <div class="flex-grow overflow-hidden">
+                        <div id="monthColumn" class="flex flex-col text-center w-full"></div>
+                    </div>
+                </div>
+
+                <!-- Day Column -->
+                <div
+                    class="flex-shrink-0 flex flex-col h-full min-w-[4rem] sm:min-w-[5rem] md:min-w-[8rem] lg:min-w-[10rem] bg-white/25 border border-white/30 shadow-md shadow-black/25 backdrop-blur-md rounded-lg p-2 sm:p-4 lg:p-8 overflow-hidden">
+                    <div class="column-label text-center font-bold text-xs sm:text-sm mb-1 sm:mb-2">Day</div>
+                    <div class="flex-grow overflow-hidden">
+                        <div id="dayColumn" class="flex flex-col text-center w-full"></div>
+                    </div>
+                </div>
+
+                <!-- Year Column -->
+                <div
+                    class="flex-shrink-0 flex flex-col h-full min-w-[4rem] sm:min-w-[5rem] md:min-w-[8rem] lg:min-w-[10rem] bg-white/25 border border-white/30 shadow-md shadow-black/25 backdrop-blur-md rounded-lg p-2 sm:p-4 lg:p-8 overflow-hidden">
+                    <div class="column-label text-center font-bold text-xs sm:text-sm mb-1 sm:mb-2">Year</div>
+                    <div class="flex-grow overflow-hidden">
+                        <div id="yearColumn" class="flex flex-col text-center w-full"></div>
+                    </div>
+                </div>
+
+                <!-- Hour Column -->
+                <div
+                    class="flex-shrink-0 flex flex-col h-full min-w-[4rem] sm:min-w-[5rem] md:min-w-[8rem] lg:min-w-[10rem] bg-white/25 border border-white/30 shadow-md shadow-black/25 backdrop-blur-md rounded-lg p-2 sm:p-4 lg:p-8 overflow-hidden">
+                    <div class="column-label text-center font-bold text-xs sm:text-sm mb-1 sm:mb-2">Hour</div>
+                    <div class="flex-grow overflow-hidden">
+                        <div id="hourColumn" class="flex flex-col text-center w-full"></div>
+                    </div>
+                </div>
+
+                <!-- Minute Column -->
+                <div
+                    class="flex-shrink-0 flex flex-col h-full min-w-[4rem] sm:min-w-[5rem] md:min-w-[8rem] lg:min-w-[10rem] bg-white/25 border border-white/30 shadow-md shadow-black/25 backdrop-blur-md rounded-lg p-2 sm:p-4 lg:p-8 overflow-hidden">
+                    <div class="column-label text-center font-bold text-xs sm:text-sm mb-1 sm:mb-2">Minute</div>
+                    <div class="flex-grow overflow-hidden">
+                        <div id="minuteColumn" class="flex flex-col text-center w-full"></div>
+                    </div>
+                </div>
+
+                <!-- Second Column -->
+                <div
+                    class="flex-shrink-0 flex flex-col h-full min-w-[4rem] sm:min-w-[5rem] md:min-w-[8rem] lg:min-w-[10rem] bg-white/25 border border-white/30 shadow-md shadow-black/25 backdrop-blur-md rounded-lg p-2 sm:p-4 lg:p-8 overflow-hidden">
+                    <div class="column-label text-center font-bold text-xs sm:text-sm mb-1 sm:mb-2">Second</div>
+                    <div class="flex-grow overflow-hidden">
+                        <div id="secondColumn" class="flex flex-col text-center w-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center items-center absolute top-0 bottom-0 z-40 w-full h-full pointer-events-none">
+                <div id="highlightBar"
+                    class="bg-white/25 border border-white/30 shadow-md shadow-black/25 rounded-full w-full h-10 sm:h-14">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            // Get all column references
+            const weekdayColumn = document.getElementById('weekdayColumn');
+            const monthColumn = document.getElementById('monthColumn');
+            const dayColumn = document.getElementById('dayColumn');
+            const yearColumn = document.getElementById('yearColumn');
+            const hourColumn = document.getElementById('hourColumn');
+            const minuteColumn = document.getElementById('minuteColumn');
+            const secondColumn = document.getElementById('secondColumn');
+
+            const timeColumns = document.getElementById('timeColumns');
+
+            // Function to generate number lists for columns
+            const generateNumbers = (start, end) => {
+                const numbers = [];
+                for (let i = start; i <= end; i++) {
+                    const number = i < 10 ? `0${i}` : `${i}`;
+                    numbers.push(`<div class="time-unit-item h-10 sm:h-14 flex items-center justify-center">${number}</div>`);
+                }
+                return numbers.join('');
+            };
+
+            // Generate content for each column
+            weekdayColumn.innerHTML += ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map(day => `<div class="time-unit-item h-10 sm:h-14 flex items-center justify-center">${day}</div>`).join('');
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            monthColumn.innerHTML += months.map(month => `<div class="time-unit-item h-10 sm:h-14 flex items-center justify-center">${month}</div>`).join('');
+            dayColumn.innerHTML += generateNumbers(1, 31);
+            yearColumn.innerHTML += generateNumbers(2010, 2040); // Generates a range of years
+            hourColumn.innerHTML += generateNumbers(0, 23);
+            minuteColumn.innerHTML += generateNumbers(0, 59);
+            secondColumn.innerHTML += generateNumbers(0, 59);
+
+            // Compute item height dynamically
+            const itemHeight = weekdayColumn.querySelector('.time-unit-item').offsetHeight;
+
+            // Function to position the columns
+            const updateTime = () => {
+                const now = new Date();
+
+                const seconds = now.getSeconds();
+                const minutes = now.getMinutes();
+                const hours = now.getHours();
+                const day = now.getDate();
+                const month = now.getMonth();
+                const year = now.getFullYear();
+                const weekdayIndex = now.getDay();
+
+                // Calculate vertical position for each column
+                const weekdayOffset = weekdayIndex * itemHeight;
+                const monthOffset = month * itemHeight;
+                const dayOffset = (day - 1) * itemHeight;
+                const yearOffset = (year - 2010) * itemHeight;
+                const hourOffset = hours * itemHeight;
+                const minuteOffset = minutes * itemHeight;
+                const secondOffset = seconds * itemHeight;
+
+                // Get visible height
+                const visibleHeight = timeColumns.parentElement.offsetHeight;
+                const verticalCenter = (visibleHeight / 2) - (itemHeight / 2);
+
+                // Position columns to align the current time with the center
+                weekdayColumn.style.transform = `translateY(${-(weekdayOffset) + verticalCenter}px)`;
+                monthColumn.style.transform = `translateY(${-(monthOffset) + verticalCenter}px)`;
+                dayColumn.style.transform = `translateY(${-(dayOffset) + verticalCenter}px)`;
+                yearColumn.style.transform = `translateY(${-(yearOffset) + verticalCenter}px)`;
+                hourColumn.style.transform = `translateY(${-(hourOffset) + verticalCenter}px)`;
+                minuteColumn.style.transform = `translateY(${-(minuteOffset) + verticalCenter}px)`;
+                secondColumn.style.transform = `translateY(${-(secondOffset) + verticalCenter}px)`;
+            };
+
+            // Initial call and set interval
+            updateTime();
+            setInterval(updateTime, 1000);
+        };
+    </script>
+</body>
+
+</html>
